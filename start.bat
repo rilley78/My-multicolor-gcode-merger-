@@ -1,4 +1,3 @@
-cd vcpkg; .\bootstrap-vcpkg.bat
-cd ..
+call vcpkg\bootstrap-vcpkg.bat
 cmake --preset=default
 cmake --build build

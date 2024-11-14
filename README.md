@@ -15,4 +15,4 @@ git clone --recursive https://github.com/rilley78/My-multicolor-gcode-merger-.gi
 ```
 **Do not forget --recursive tag!** It is very important!
 
-Open "start.cmd" or "start.sh" file, dependant on your system.
+Open "start.bat" or "start.sh" file, dependant on your system.
