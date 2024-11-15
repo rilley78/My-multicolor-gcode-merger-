@@ -5,7 +5,6 @@
 #include <iostream>
 #include <iterator>
 #include <algorithm>
-#include <filesystem>
 #include <string>
 
 int main( void )
@@ -21,7 +20,6 @@ int main( void )
     args.filterList = filters;
     args.filterCount = 1;
     std::ifstream fileIn;
-    std::ofstream fileOut {"test.gcode"};
     for (int i = 0; i < colorcount; i++) 
     {    
         nfdresult_t result = NFD_OpenDialogU8_With(&outPath, &args);
@@ -30,11 +28,7 @@ int main( void )
             std::cout << "File #" << colorcount << " opened successfully!\n";
             fileIn.open(outPath);
             NFD_FreePathU8(outPath);
-            std::istreambuf_iterator<char> begin_file(fileIn);
-            std::copy(std::istreambuf_iterator<char>(fileIn), 
-            std::istreambuf_iterator<char>(), 
-            std::ostreambuf_iterator<char>(fileOut));
-            fileIn.close();
+            
         }
         else if (result == NFD_CANCEL) 
         {
@@ -47,8 +41,30 @@ int main( void )
             break;
         }
     }
-    fileOut.close();
-
+    
+    nfdchar_t *savePath = NULL;
+    nfdresult_t result = NFD_SaveDialogU8(&savePath, filters, 1, NULL, NULL);
+    if ( result == NFD_OKAY )
+    {
+        puts("Success!");
+        std::ofstream fileOut (savePath);
+        std::istreambuf_iterator<char> begin_file(fileIn);
+        std::copy(std::istreambuf_iterator<char>(fileIn), 
+        std::istreambuf_iterator<char>(), 
+        std::ostreambuf_iterator<char>(fileOut));
+        fileIn.close();
+        fileOut.close();
+        std::cout << savePath << std::endl;
+        free(savePath);
+    }
+    else if ( result == NFD_CANCEL )
+    {
+        puts("User pressed cancel.");
+    }
+    else 
+    {
+        printf("Error: %s\n", NFD_GetError() );
+    }
     NFD_Quit();
     return 0;
 }
