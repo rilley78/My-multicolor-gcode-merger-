@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(HelloWorld)
+project(MulticolorGcodeMerger)
 
-find_package(fmt CONFIG REQUIRED)
+find_package(nfd CONFIG REQUIRED)
 
-add_executable(HelloWorld src/main.cpp)
+add_executable(MulticolorGcodeMerger src/main.cpp)
 
-target_link_libraries(HelloWorld PRIVATE fmt::fmt)
+target_link_libraries(MulticolorGcodeMerger PRIVATE nfd::nfd)
