@@ -51,14 +51,14 @@ int main( void )
             {
                 buffToBuff.push_back(line);
             }
-            if (i < colorcount - 1)
+            if (i < colorcount - 1) //all times except last
             {
                 buffToBuff.erase(find(buffToBuff.rbegin(), buffToBuff.rend(), "M107").base(), buffToBuff.end());
                 buffToBuff.push_back("M600");
             }
-            if (i > 0)
+            if (i > 0) //all times except first
             {
-                buffToBuff.erase(buffToBuff.begin(), find(buffToBuff.begin(), buffToBuff.end(), "M107"));
+                buffToBuff.erase(buffToBuff.begin(), find(buffToBuff.begin(), buffToBuff.end(), "G92 E0"));
             }
             buff.insert(buff.end(), buffToBuff.begin(), buffToBuff.end());
             fileIn.close();
