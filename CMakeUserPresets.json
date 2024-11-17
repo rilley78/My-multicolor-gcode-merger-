@@ -2,9 +2,14 @@
     "version": 2,
     "configurePresets": [
       {
-        "name": "default",
+        "name": "win",
+        "generator": "Visual Studio 17 2022",
         "inherits": "vcpkg"
-        
+      },
+      {
+        "name": "linux",
+        "generator": "MakeFiles",
+        "inherits": "vcpkg"
       }
     ]
   }
