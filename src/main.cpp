@@ -6,13 +6,12 @@
 #include <algorithm>
 #include <string>
 #include <vector>
-using namespace std;
 
 int main( void )
 {
     int colorcount;
-    cout << "Enter number of colours.\n";
-    cin >> colorcount;
+    std::cout << "Enter number of colours.\n";
+    std::cin >> colorcount;
     /*while (cout << "Enter number of colours.\n" && !(cin >> colorcount) && colorcount < 1)
     {
         std::cin.clear();
@@ -28,6 +27,7 @@ int main( void )
         }
     }
     const char *code = "M160";*/
+    std::string drawALine = "";
 
     NFD_Init();
     nfdu8char_t* outPath;
@@ -35,18 +35,19 @@ int main( void )
     nfdopendialogu8args_t args = { 0 };
     args.filterList = filters;
     args.filterCount = 1;
-    ifstream fileIn;
-    vector<string> buff;
+    std::ifstream fileIn;
+    std::vector<std::string> buff;
+    
     for (int i = 0; i < colorcount; i++) 
     {    
         nfdresult_t result = NFD_OpenDialogU8_With(&outPath, &args);
         if (result == NFD_OKAY) 
         {
-            cout << "File #" << i + 1 << " opened successfully!\n";
-            vector<string> buffToBuff;
+            std::cout << "File #" << i + 1 << " opened successfully!\n";
+            std::vector<std::string> buffToBuff;
             fileIn.open(outPath);
             NFD_FreePathU8(outPath);
-            string line;
+            std::string line;
             while (getline(fileIn, line))
             {
                 buffToBuff.push_back(line);
@@ -80,10 +81,10 @@ int main( void )
     if ( result == NFD_OKAY )
     {
         puts("Success!");
-        ofstream fileOut (savePath);
+        std::ofstream fileOut (savePath);
         for (const auto& item : buff)
         {
-            fileOut << item << endl;
+            fileOut << item << '\n';
         }
         fileOut.close();
         free(savePath);
